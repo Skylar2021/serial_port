@@ -1,0 +1,76 @@
+{
+    "chromeMetadata": {
+       "OS": "Windows 10 Version 21H2 (Build 19044.1766)",
+       "application": "Google Chrome",
+       "revision": "20b1569438a85e631d15e83eb355e3e326e5da6f-refs/branch-heads/5060@{#1066}",
+       "version": "103.0.5060.66 (正式版本) (64 位元) (cohort: Stable)"
+    },
+    "chromePolicies": {
+       "AllowOutdatedPlugins": {
+          "error": "不明政策。",
+          "level": "mandatory",
+          "scope": "machine",
+          "source": "platform",
+          "value": 1
+       },
+       "AutoSelectCertificateForUrls": {
+          "level": "mandatory",
+          "scope": "machine",
+          "source": "platform",
+          "value": [ "{\"pattern\":\"[*.]chowsangsang.com\",\"filter\":{\"ISSUER\":{\"CN\":\"Chow Sang Sang Private CA 2017 - 2099\"}}}" ]
+       },
+       "DefaultPluginsSetting": {
+          "error": "不明政策。",
+          "level": "mandatory",
+          "scope": "machine",
+          "source": "platform",
+          "value": 1
+       },
+       "PluginsAllowedForUrls": {
+          "error": "不明政策。",
+          "level": "mandatory",
+          "scope": "machine",
+          "source": "platform",
+          "value": {
+             "1": "https://*",
+             "2": "http://*",
+             "3": "https://eform.chowsangsang.com/workflow/console/Console.html",
+             "4": "https://hkqauat.chowsangsang.com",
+             "5": "https://hkqa.chowsangsang.com"
+          }
+       },
+       "PopupsAllowedForUrls": {
+          "level": "mandatory",
+          "scope": "machine",
+          "source": "platform",
+          "value": [ "[*.]chowsangsang.com" ]
+       },
+       "RunAllFlashInAllowMode": {
+          "error": "不明政策。",
+          "level": "mandatory",
+          "scope": "machine",
+          "source": "platform",
+          "value": 1
+       },
+       "SerialAskForUrls":{
+        "value":{
+            "1": "https://*",
+            "2": "http://*",
+            "3": "file:///C:/Users/skylar.wong.f.t/Desktop/weight/browser%20connect%20balance/index.html"
+        }
+       }      
+    },
+    "extensionPolicies": {
+       "efaidnbmnnnibpcajpcglclefindmkaj": {
+       },
+       "ghbmnnjooekpmoecnnnilnnbdlolhkhi": {
+       }
+    },
+    "status": {
+       "updater": {
+          "timeSinceLastRefresh": "3 天前",
+          "version": "1.3.36.132"
+       }
+    }
+ }
+ 
