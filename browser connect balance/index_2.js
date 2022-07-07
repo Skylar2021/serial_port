@@ -79,10 +79,28 @@ btn_select.onclick = async () => {
 
 btn_closePort.onclick = async () => {
   if (port_selected) {
-    port_selected.close();
+    port_selected.close().catch(err=>console.log(err));
     console.log("port closed");
   }
 };
+let closePort = async () => {
+      console.log("port_selected ", port_selected);
+
+  if (port_selected) {
+    port_selected.close().catch(err=>console.log(err));
+    console.log("port closed");
+  }
+};
+document.addEventListener("visibilitychange",()=>{
+  if(document.hidden){
+    console.log("close",document.hidden)
+    closePort()
+    
+  }else{
+    console.log("open",document.hidden)
+    openPort()
+  }
+}) 
 
 // open port
 
@@ -93,6 +111,16 @@ btn_open.onclick = async () => {
     stopBits: 2,
   };
   port_selected.open(configValue);
+  console.log("port opened");
+};
+
+let openPort = async () => {
+  let configValue = {
+    baudRate: 1200,
+    dataBits: 8,
+    stopBits: 2,
+  };
+  port_selected.open(configValue).catch(err=>console.log(err));
   console.log("port opened");
 };
 
@@ -143,7 +171,7 @@ btn_read.onclick = async () => {
           }
         }
 
-        alertMsg({ response: response, reading: reading, count: count })
+        alertMsg({ response: response, reading: reading })
         response = null;
         reading = null;
       }
