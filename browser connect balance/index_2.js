@@ -17,48 +17,23 @@ let configValue = {
 let isPortClosed = true;
 
 document.addEventListener("DOMContentLoaded", async () => {
+  console.log(navigator);
   let ports = await navigator.serial.getPorts();
-  // Populate the UI with options for the user to select or
-  // automatically connect to devices.
+  
   console.log("ports", ports);
-  // console.log("ports",ports[0])
+  
 
   if (ports.length === 0) {
     port_selected = await navigator.serial.requestPort();
   } else {
-    port_selected = ports[0];
-    // console.log("port_selected ", port_selected);
-  }
-
-  // console.log("port_selected get signal",navigator.serial)
+    port_selected = ports[0];   
+  }  
   console.log(port_selected);
-  // console.log(port_selected.readable);
-  if (port_selected) {
-    // console.log(port_selected.readable)
-    // await port_selected.close(configValue);
-    await port_selected.open(configValue).catch((err) => {
-      console.log(err);
-      if (err) {
-        history.go();
-      }
-    });
-
-    // return false if opened
-    // isPortClosed = port_selected.readable.locked; //false if opened
-    // document.querySelector(".connection_status")?.innerHTML = "connected";
-    // console.log("port_selected 1", port_selected.readable.locked);
-    // console.log("123");
+  
+  if (port_selected) {   
+    openPort() 
   }
-  //   if (isPortClosed) {
-  //     console.log("refresh");
-  //     history.go();
-  //   }
-  // console.log("port_selected locked",port_selected?.readable?.locked)
-  // console.log("port_selected 2",port_selected.readable)
-  // console.log(port_selected)
 });
-
-// let port = navigator.serial
 
 // request to select a serial port and open selected port
 btn_select.onclick = async () => {
@@ -102,7 +77,7 @@ document.addEventListener("visibilitychange",()=>{
   }
 }) 
 
-// open port
+// open port on button click
 
 btn_open.onclick = async () => {
   let configValue = {
@@ -110,9 +85,11 @@ btn_open.onclick = async () => {
     dataBits: 8,
     stopBits: 2,
   };
-  port_selected.open(configValue);
+  port_selected.open(configValue)
   console.log("port opened");
 };
+
+// open port
 
 let openPort = async () => {
   let configValue = {
@@ -120,8 +97,10 @@ let openPort = async () => {
     dataBits: 8,
     stopBits: 2,
   };
-  port_selected.open(configValue).catch(err=>console.log(err));
-  console.log("port opened");
+  port_selected.open(configValue).then(()=>console.log("port opened")).catch(err=>{  
+      setTimeout(openPort,100);    
+  });
+  
 };
 
 let response, reading;
@@ -159,7 +138,7 @@ btn_read.onclick = async () => {
             // console.log("dataCodeArr: ", dataCodeArr);
             response = dataCodeArr.join("");
             dataCodeArr = [];
-          } else if (i === 10) {
+          } else if (i === 10) {// \n
             continue;
           } else if (i == 13 && dataCodeArr.length > 3) {
             // reading : number
