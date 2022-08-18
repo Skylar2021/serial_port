@@ -27,11 +27,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (ports.length === 0) {
     port_selected = await navigator.serial.requestPort();
   } else {
-    port_selected = ports[4];
+    port_selected = ports[3];
   }
   console.log(port_selected);
 
-  if (port_selected) {
+  // if (port_selected) {
+  if (!document.hidden && port_selected) {
     openPort();
   }
 });
@@ -129,7 +130,7 @@ const readBalance = async () => {
   writer.releaseLock();
 
   // console.log("keepReading",keepReading);
-  console.log(port_selected.readable);
+  console.log("port_selected.readable.locked",port_selected.readable.locked);
 
   if (port_selected.readable.locked) return;
   reader  = await port_selected.readable.getReader();
@@ -177,7 +178,7 @@ const readBalance = async () => {
     console.log("error",error);
     
   } finally {
-    console.log("finally");
+    console.log("read balance finally");
     reader.releaseLock();
 
   }
@@ -188,16 +189,27 @@ const readBalance = async () => {
 const testing = async() =>{
   console.log("---testing---")
   try {
-    await reader.cancel();
+    await reader.cancel().then(()=>{
+    console.log("reader.canceled");
+
+    });
+    // await reader.releaseLock();
+
     // await port_selected.writable.abort()
-    await port_selected.close();
+    await port_selected.close().then(()=>{
+      console.log("port_selected.closed");
+  
+      });
     
   } catch (error) {
     console.log("error",error);
     
+  }finally {
+    console.log("testing finally")
+    writer = null,reader = null
   }
 }
-btn_test.onclick = ()=>{testing()}
+// btn_test.onclick = ()=>{testing()}
 btn_read.onclick = readBalance;
 
 function alertMsg(msg) {
